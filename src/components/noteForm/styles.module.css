@@ -1,0 +1,18 @@
+.noteForm {
+  display: grid;
+  justify-content: center;
+  margin: 150px;
+  gap: 10px;
+}
+.input {
+  width: 50vh;
+  height: 4vh;
+}
+.btnForm {
+  width: 100px;
+  height: 25px;
+  margin-left: 270px;
+}
+.inputText {
+  height: 10vh;
+}

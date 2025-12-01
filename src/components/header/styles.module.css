@@ -1,0 +1,9 @@
+.header {
+  background-color: rgb(27, 30, 64);
+  padding: 20px;
+  text-align: center;
+}
+.title {
+  color: white;
+  font-size: 2em;
+}

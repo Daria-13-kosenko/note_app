@@ -6,10 +6,14 @@ const noteReducer = (state = initialState, action) => {
     state.notes = [...state.notes, action.payload]
   }
   if (action.type === 'EDIT_NOTE') {
-    state.notes = [...state.notes, action.payload]
+    state.map((note) =>
+      note.id === action.payload.id
+        ? { ...note, ...action.payload.updateNote }
+        : note
+    )
   }
   if (action.type === 'DELETE_NOTE') {
-    state.notes = [...state.notes, action.payload]
+    state.filter((note) => note.id != action.payload)
   }
   return state
 }
