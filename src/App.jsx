@@ -11,7 +11,6 @@ function App() {
       <Main>
         <NoteList />
       </Main>
-
       <Footer />
     </div>
   )

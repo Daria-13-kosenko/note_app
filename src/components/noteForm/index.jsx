@@ -3,7 +3,7 @@ import { addNote } from '../../redux/actions'
 import { connect } from 'react-redux'
 import styles from './styles.module.css'
 
-function NoteForm({ dispatch }) {
+function NoteForm({ addNote }) {
   const [noteData, setNoteData] = useState({
     title: '',
     text: '',
@@ -16,30 +16,31 @@ function NoteForm({ dispatch }) {
 
   function handleSubmit(event) {
     event.preventDefault()
-    dispatch(
-      addNote({
-        id: Math.random(),
-        ...noteData,
-      })
-    )
+    if (!noteData.title.trim() && !noteData.text.trim()) return
+
+    addNote({
+      id: Math.random(),
+      ...noteData,
+    })
+
+    setNoteData({ title: '', text: '' })
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles.noteForm}>
+    <form className={styles.noteForm} onSubmit={handleSubmit}>
       <input
-        type="text"
-        placeholder="title"
-        value={noteData.title}
         name="title"
-        onChange={(event) => handleFormData(event)}
+        type="text"
+        placeholder="Title"
+        value={noteData.title}
+        onChange={handleFormData}
         className={styles.input}
       />
-      <input
-        type="text"
-        placeholder="text"
-        value={noteData.text}
+      <textarea
         name="text"
-        onChange={(event) => handleFormData(event)}
+        placeholder="Text"
+        value={noteData.text}
+        onChange={handleFormData}
         className={styles.inputText}
       />
       <button type="submit" className={styles.btnForm}>
@@ -49,10 +50,4 @@ function NoteForm({ dispatch }) {
   )
 }
 
-const mapStateToProps = (state, ownPrors) => ({
-  dispatch: state.notes.find((note) => note.id === ownPrors),
-})
-const mapDispatchToProps = {
-  addNote,
-}
-export default connect(mapStateToProps, mapDispatchToProps)(NoteForm)
+export default connect(null, { addNote })(NoteForm)

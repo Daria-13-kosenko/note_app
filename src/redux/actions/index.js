@@ -4,13 +4,17 @@ export function addNote(data) {
     payload: data,
   }
 }
-export function editNote(id, updatenote) {
+
+export function editNote(id, updateNote) {
   return {
     type: 'EDIT_NOTE',
-    payload: id,
-    updatenote,
+    payload: {
+      id,
+      updateNote,
+    },
   }
 }
+
 export function deleteNote(id) {
   return {
     type: 'DELETE_NOTE',

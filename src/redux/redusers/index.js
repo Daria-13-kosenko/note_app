@@ -1,20 +1,34 @@
 const initialState = {
   notes: [],
 }
+
 const noteReducer = (state = initialState, action) => {
-  if (action.type === 'ADD_NOTE') {
-    state.notes = [...state.notes, action.payload]
+  switch (action.type) {
+    case 'ADD_NOTE':
+      return {
+        ...state,
+        notes: [...state.notes, action.payload],
+      }
+
+    case 'EDIT_NOTE':
+      return {
+        ...state,
+        notes: state.notes.map((note) =>
+          note.id === action.payload.id
+            ? { ...note, ...action.payload.updateNote }
+            : note
+        ),
+      }
+
+    case 'DELETE_NOTE':
+      return {
+        ...state,
+        notes: state.notes.filter((note) => note.id !== action.payload),
+      }
+
+    default:
+      return state
   }
-  if (action.type === 'EDIT_NOTE') {
-    state.map((note) =>
-      note.id === action.payload.id
-        ? { ...note, ...action.payload.updateNote }
-        : note
-    )
-  }
-  if (action.type === 'DELETE_NOTE') {
-    state.filter((note) => note.id != action.payload)
-  }
-  return state
 }
+
 export default noteReducer
